@@ -41,7 +41,6 @@ module MRKeychain
         raise UsernameNilError if username.nil? || username.length == 0
         raise PasswordNilError if password.nil? || password.length == 0
         
-        password_pointer = password.dataUsingEncoding(NSMacOSRomanStringEncoding).bytes
         item_ref = Pointer.new('^{OpaqueSecKeychainItemRef}')
         error = SecKeychainAddGenericPassword(
           nil,
@@ -50,7 +49,7 @@ module MRKeychain
           username.length,
           username,
           password.length,
-          password_pointer,
+          password.pointer,
           item_ref)
 
         if error == 0 && item_ref
