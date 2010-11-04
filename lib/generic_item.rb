@@ -64,23 +64,20 @@ module MRKeychain
         raise UsernameNilError if username.nil? || username.length == 0
         
         password_length = Pointer.new('I')
-        password_data = Pointer.new('^v')
+        password_ptr = Pointer.new('^v')
         item_ref = Pointer.new('^{OpaqueSecKeychainItemRef}')
-        status = SecKeychainFindGenericPassword(
+        error = SecKeychainFindGenericPassword(
           nil,
           service.length,
           service,
           username.length,
           username,
           password_length,
-          password_data,
+          password_ptr,
           item_ref)
           
-        if status == 0 && item_ref
-          password = ""
-          password_length[0].times do |i|
-            password << password_data[0][i]
-          end
+        if error == 0 && item_ref
+          password = NSString.alloc.initWithBytes(password_ptr[0], length:password_length[0], encoding:NSASCIIStringEncoding)
           new(service, username, password, item_ref[0])
         else
           nil
