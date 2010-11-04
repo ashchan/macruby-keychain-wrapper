@@ -6,7 +6,8 @@
 
 module MRKeychain
   class GenericItem
-    attr_accessor :service, :username, :password
+    attr_reader :service
+    attr_accessor :username, :password
 
     def initialize(service, username, password, item_ref)
       @service = service
