@@ -17,10 +17,12 @@ module MRKeychain
     end
     
     def username=(n)
+      raise UsernameNilError if n.nil? || n.length == 0
       #TODO
     end
     
-    def password=(n)
+    def password=(p)
+      raise PasswordNilError if p.nil? || p.length == 0
       #TODO
     end
     
