@@ -15,15 +15,19 @@ module MRKeychain
       @password = password
       @item_ref = item_ref
     end
-    
+
     def username=(n)
       raise UsernameNilError if n.nil? || n.length == 0
-      #TODO
+      raise "NotImplYet"
+      #kSecAccountItemAttr = 1633903476
+      modify_attribute_with_tag(1633903476, value:n)
+      @username = n
     end
     
     def password=(p)
       raise PasswordNilError if p.nil? || p.length == 0
-      #TODO
+      SecKeychainItemModifyAttributesAndData(@item_ref, nil, p.length, p.pointer)
+      @password = p
     end
     
     def remove
@@ -84,5 +88,15 @@ module MRKeychain
         end
       end
     end
-  end 
+    
+    private
+    def modify_attribute_with_tag(attr_tag, value:v)
+      return unless @item_ref
+
+      # TODO: make this work
+    	attrs = SecKeychainAttributeList.new(1, SecKeychainAttribute.new(attr_tag, v.length, v.pointer))
+
+    	SecKeychainItemModifyAttributesAndData(@item_ref, attrs, 0, nil)
+  	end
+  end
 end
