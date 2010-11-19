@@ -4,6 +4,12 @@ MacRuby Keychain Wrapper is a wrapper for accessing keychain from MacRuby.
 
 todo: more intro
 
+Requirements:
+
+  * Mac OS X 10.6 (Snow Leopard) or higher
+  * [MacRuby](http://macruby.com/) 0.8 (nightly build)
+  * [BridgeSupport](http://bridgesupport.macosforge.org/trac/wiki) Preview 1
+
 ## Examples ##
 
     require 'keychain'
