@@ -26,7 +26,8 @@ module MRKeychain
     
     def password=(p)
       raise PasswordNilError if p.nil? || p.length == 0
-      SecKeychainItemModifyAttributesAndData(@item_ref, nil, p.length, p.pointer)
+      pwd = "#{p.to_s}"
+      SecKeychainItemModifyAttributesAndData(@item_ref, nil, pwd.length, pwd.pointer)
       @password = p
     end
     
@@ -44,7 +45,8 @@ module MRKeychain
         raise ServiceNilError if service.nil? || service.length == 0
         raise UsernameNilError if username.nil? || username.length == 0
         raise PasswordNilError if password.nil? || password.length == 0
-        
+
+        pwd = "#{password.to_s}"
         item_ref = Pointer.new('^{OpaqueSecKeychainItemRef}')
         error = SecKeychainAddGenericPassword(
           nil,
@@ -52,8 +54,8 @@ module MRKeychain
           service,
           username.length,
           username,
-          password.length,
-          password.pointer,
+          pwd.length,
+          pwd.pointer,
           item_ref)
 
         if error == 0 && item_ref
