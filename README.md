@@ -1,6 +1,6 @@
 # MacRuby Keychain Wrapper #
 
-MacRuby Keychain Wrapper is a wrapper for accessing keychain from MacRuby.
+MacRuby Keychain Wrapper is a wrapper for accessing keychain from MacRuby. Extracted from [Gmail Notifr](http://ashchan.com/projects/gmail-notifr).
 
 todo: more intro
 
