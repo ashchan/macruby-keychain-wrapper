@@ -8,5 +8,10 @@ framework 'Cocoa'
 framework 'Security'
 
 %w(exception generic_item internet_item).each do |c|
-  require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', c)
+  begin
+    require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', c)
+  rescue LoadError
+    # in case Xcode project compiles files to a flat folder
+    require c
+  end
 end
