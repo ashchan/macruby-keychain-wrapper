@@ -65,9 +65,8 @@ module MRKeychain
         end
       end
       
-      def item_for_service(service, username:username)
+      def item_for_service(service, username = '')
         raise ServiceNilError if service.nil? || service.length == 0
-        raise UsernameNilError if username.nil? || username.length == 0
         
         password_length = Pointer.new('I')
         password_ptr = Pointer.new('^v')
